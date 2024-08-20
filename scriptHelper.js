@@ -65,6 +65,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
      cargoStatus.innerHTML = "Cargo mass low enough for launch";
  }
 
+ 
  if (fuelReady && cargoReady) {
     faultyItems.style.visibility = "hidden";
     launchStatus.innerHTML = "Shuttle is Ready for Launch";
