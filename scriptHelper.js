@@ -1,18 +1,33 @@
-
 require('cross-fetch/polyfill');
+
+async function myFetch() {
+    let planetsReturned;
+
+    planetsReturned = await fetch('https://handlers.education.launchcode.org/static/planets.json').then( function(response) {
+       return response.json(); 
+   });
+
+    return planetsReturned;
+}
+
+function pickPlanet(planets) {
+   let randomIndex = Math.floor(Math.random() * planets.length);
+   return planets[randomIndex];
+
+}
 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
 
      document.getElementById("missionTarget").innerHTML = `
                  <h2>Mission Destination</h2>
                  <ol>
-                     <li>Name:Saturn/Titan</li>
-                     <li>Diameter:5149.5km</li>
-                     <li>Star:Sol</li>
-                     <li>Distance from Earth:1.4billionkmfromEarth</li>
-                     <li>Number of Moons:0</li>
+                     <li>Name: ${name}</li>
+                     <li>Diameter: ${diameter}</li>
+                     <li>Star: ${star}</li>
+                     <li>Distance from Earth: ${distance}</li>
+                     <li>Number of Moons: ${moons}</li>
                  </ol>
-                 <img src="https://solarsystem.nasa.gov/system/resources/detail_files/16278_PIA20016.jpg">
+                 <img src="${imageUrl}">
     `;
 }
 
@@ -44,6 +59,12 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
         alert("Fuel Level and Cargo Mass must be numbers!");
         return;}
 
+    if (validateInput(pilot) === "Is a Number" || validateInput(copilot) === "Is a Number") {
+        alert("Piolt and Copilot names must be text!");
+        return;}
+        
+    
+
  pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`;
  copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`;
 
@@ -70,6 +91,8 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
     faultyItems.style.visibility = "hidden";
     launchStatus.innerHTML = "Shuttle is Ready for Launch";
     launchStatus.style.color = "green";
+    list.style.visibility = "visible";
+    return list;
 } else {
     faultyItems.style.visibility = "visible";
     launchStatus.innerHTML = "Shuttle Not Ready for Launch";
@@ -77,21 +100,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 }
 }
 
- async function myFetch() {
-     let planetsReturned;
- 
-     planetsReturned = await fetch('https://handlers.education.launchcode.org/static/planets.json').then( function(response) {
-        return response.json(); 
-    });
- 
-     return planetsReturned;
- }
- 
- function pickPlanet(planets) {
-    let randomIndex = Math.floor(Math.random() * planets.length);
-    return planets[randomIndex];
 
- }
  
  module.exports.addDestinationInfo = addDestinationInfo;
  module.exports.validateInput = validateInput;
