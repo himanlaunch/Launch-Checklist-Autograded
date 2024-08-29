@@ -1,19 +1,12 @@
 require('cross-fetch/polyfill');
 
 async function myFetch() {
-    let planetsReturned;
-
-    planetsReturned = await fetch('https://handlers.education.launchcode.org/static/planets.json').then( function(response) {
-       return response.json(); 
-   });
-
-    return planetsReturned;
+    const response = await fetch('https://handlers.education.launchcode.org/static/planets.json');
+    return response.json();
 }
 
 function pickPlanet(planets) {
-   let randomIndex = Math.floor(Math.random() * planets.length);
-   return planets[randomIndex];
-
+    return planets[Math.floor(Math.random() * planets.length)];
 }
 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
